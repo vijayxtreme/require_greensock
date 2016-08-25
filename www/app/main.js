@@ -1,16 +1,52 @@
 define(function (require) {
-	var $ = require('jquery');
-	var TweenLite = require('TweenLite');
-	console.log($)
+	var $ = require('jquery')
 
-	var demo = {score:0},
-	    scoreDisplay = document.getElementById("scoreDisplay");
+	var logo = $("#logo");
 
-	//create a tween that changes the value of the score property of the demo object from 0 to 100 over the course of 20 seconds.
-	var tween = TweenLite.to(demo, 20, {score:100, onUpdate:showScore})
+	function runAnimation(el, callback){
+		var run;
 
-	//each time the tween updates this function will be called.
-	function showScore() {
-	  scoreDisplay.innerHTML = demo.score.toFixed(2);
+		$(window).scroll(function(){
+
+			var docViewTop = $(window).scrollTop();
+			var docViewBottom = docViewTop + $(window).height();
+
+			var elemTop = $(el).offset().top;
+			var elemBottom = elemTop + $(el).height();
+
+			var inView = ((elemBottom <= docViewBottom) && (elemTop >= docViewTop)) ? true : false;
+
+	 		if(!run && inView){
+	 			callback();
+	 			run = true;
+	 		}else {
+
+	 		}
+
+	 		if($(this).scrollTop() <= 100){
+	 			run = false;
+	 			$("#logo, #logo2").css('left', '0px');
+	 		}
+	 	})
 	}
+	
+	var el = $("#greensock");
+	runAnimation(el, function(){
+		console.log('tweening')
+		var demo = $("#logo")
+		TweenLite.to(demo, 2, {
+			left:'530px',
+			backgroundColor:'black'
+		})
+	});
+	var el = $("#greensock2");
+	runAnimation(el, function(){
+		console.log('tweening')
+		var demo = $("#logo2")
+		TweenLite.to(demo, 2, {
+			left:'530px',
+			backgroundColor:'black'
+		})
+	});
+
 });

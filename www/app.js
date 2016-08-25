@@ -2,8 +2,9 @@ requirejs.config({
     baseUrl: 'lib',
     paths: {
         app: '../app',
-        TweenLite:'../lib/greensock'
+        TweenLite:'greensock',
+        CSSPlugin:'cssplugin'
     }
 });
 
-requirejs(['jquery', 'TweenLite', 'app/main']);
+requirejs(['jquery', 'TweenLite', 'CSSPlugin', 'app/main']);
